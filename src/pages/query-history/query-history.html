@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>query-history</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <accordion-list *ngFor="let date of query_keys; let index = index" [title]="date" textColor="#FFF" hasMargin="false"
+    headerColor="#F53D3D" [expanded]="index === 0">
+    <ion-list>
+      <ion-item *ngFor="let query of query_history[date]">
+        <ion-avatar item-start>
+          <img alt='image'>
+        </ion-avatar>
+        <h3>{{query['crop']['name']}}</h3>
+      </ion-item>
+    </ion-list>
+  </accordion-list>
+</ion-content>

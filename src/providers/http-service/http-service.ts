@@ -56,4 +56,18 @@ export class HttpServiceProvider {
     return this.http.post(this.global.base_url + 'main/resend/login/otp/', data, {});
   }
 
+  uploadUserQuery(data) {
+    return this.http.post(this.global.base_url + 'main/upload/user/query/images/', data);
+  }
+
+  getCrops() {
+    return this.http.get(this.global.base_url + 'main/serve/corp/')
+      .map((res) => res.json());
+  }
+
+  getQueryHistoryByUser(data) {
+    return this.http.post(this.global.base_url + 'main/get/query/history/by/user/', data)
+      .map((res) => res.json());
+  }
+
 }

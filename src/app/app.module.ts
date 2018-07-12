@@ -31,7 +31,14 @@ import { CameraServiceProvider } from '../providers/camera-service/camera-servic
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      platforms: {
+        android: {
+          scrollAssist: false,
+          autoFocusAssist: false
+        }
+      }
+    }),
     HttpModule,
     IonicStorageModule.forRoot()
   ],
