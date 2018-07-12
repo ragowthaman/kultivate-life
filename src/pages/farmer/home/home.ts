@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {HttpServiceProvider} from "../../../providers/http-service/http-service";
-import {LoginPage} from "../login/login";
-import {NavController, App, ActionSheetController, Platform, ToastController, LoadingController} from 'ionic-angular';
+import { HttpServiceProvider } from "../../../providers/http-service/http-service";
+import { LoginPage } from "../login/login";
+import { NavController, App, ActionSheetController, Platform, ToastController, LoadingController } from 'ionic-angular';
 import { CameraServiceProvider } from '../../../providers/camera-service/camera-service';
 
 
@@ -11,16 +11,25 @@ import { CameraServiceProvider } from '../../../providers/camera-service/camera-
   templateUrl: 'home.html'
 })
 export class HomePage {
-  crops = [
-    {'id': 1, 'name': 'Paddy'},
-    {'id': 2, 'name': 'Tomato'},
-    {'id': 3, 'name': 'Chilly'},
-  ];
+  // crops = [
+  //   { 'id': 1, 'name': 'Paddy' },
+  //   { 'id': 2, 'name': 'Tomato' },
+  //   { 'id': 3, 'name': 'Chilly' },
+  // ];
+  crop_id: any;
+  age_of_crop: any;
+  notes: any;
+  crops: any[] = [];
   picture_array: any[] = [];
-  dummy = 'assets/imgs/logo.png';
 
   constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
     private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
+    this.httpServiceProvider.getCrops().subscribe((data) => {
+      console.log(data);
+      this.crops = data;
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   choosePicture() {
@@ -109,6 +118,28 @@ export class HomePage {
 
   removeSelectedPic(index) {
     this.picture_array.splice(index, 1);
+  }
+
+  uploadQuery(crop_id, age_of_crop, notes, picture_array) {
+    let query_dict = {};
+    query_dict['user_id'] = 3;
+    query_dict['crop_id'] = crop_id;
+    query_dict['age_of_crop'] = age_of_crop;
+    query_dict['notes'] = notes;
+    if (picture_array.length != 0) {
+      query_dict['query_picture'] = picture_array;
+    }
+    console.log(query_dict);
+    this.httpServiceProvider.uploadUserQuery(query_dict).subscribe((data) => {
+      console.log(data);
+      this.crop_id = null;
+      this.age_of_crop = null;
+      this.notes = null;
+      this.picture_array = []
+      alert('Your Request is uploaded!');
+    }, (error) => {
+      console.log(error);
+    });
   }
 
 }

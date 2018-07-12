@@ -15,17 +15,21 @@
   <ion-list>
     <ion-item>
       <ion-label>Choose Crop</ion-label>
-      <ion-select [(ngModel)]="crop_name" interface="popover" placeholder="choose crop">
+      <ion-select [(ngModel)]="crop_id" interface="popover" placeholder="choose crop">
         <ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
   <ion-list>
     <ion-item>
-      <ion-label floating>Age of crop</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-label fixed>Age of crop</ion-label>
+      <ion-input [(ngModel)]="age_of_crop" placeholder='Age in days' type="number"></ion-input>
     </ion-item>
   </ion-list>
+  <ion-item>
+    <ion-label floating>Notes</ion-label>
+    <ion-textarea elastic style="color:black; line-height:normal; height:100%" [(ngModel)]="notes"></ion-textarea>
+  </ion-item>
 
   <ion-icon name="camera" style="font-size: 100px; margin-left: 40%" (click)="choosePicture()"></ion-icon>
   <br>
@@ -40,7 +44,7 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button full color="secondary">Send</button>
+      <button ion-button full color="secondary" (click)="uploadQuery(crop_id, age_of_crop, notes, picture_array)">Send</button>
     </ion-col>
   </ion-row>
 
