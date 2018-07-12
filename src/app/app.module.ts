@@ -3,13 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { AboutPage } from '../pages/farmer/about/about';
+import { ContactPage } from '../pages/farmer/contact/contact';
+import { HomePage } from '../pages/farmer/home/home';
+import { TabsPage } from '../pages/farmer/tabs/tabs';
 
+import { HttpModule } from '@angular/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from "@ionic-native/camera";
+import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { GlobalProvider } from '../providers/global/global';
+import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
 
 @NgModule({
   declarations: [
@@ -17,11 +22,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SignUpPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,12 +36,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
-  ],
+    TabsPage,
+    SignUpPage
+],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera,
+    HttpServiceProvider,
+    GlobalProvider
   ]
 })
 export class AppModule {}

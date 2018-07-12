@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Choose Crop </ion-label>
+      <ion-select [(ngModel)]="crop_name" interface="popover" placeholder="choose crop">
+        <ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+    <ion-label floating>Age of crop</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-icon name="camera" style="font-size: 100px; margin-left: 40%" (click)="takePicture()"></ion-icon>
+
+</ion-content>
