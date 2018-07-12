@@ -1,35 +1,75 @@
 <ion-header>
   <ion-navbar>
     <ion-row>
-      <ion-col col-5>
-        <ion-title>Home</ion-title>
+      <ion-col>
+        <ion-title>Kultivate <span style="color: #F4511E">Life</span></ion-title>
       </ion-col>
       <ion-col offset-3 col-3>
-        <span (click)="logout()" style="color: #FF7043; font-weight: bold">Logout</span>
+        <span (click)="logout()" style="color: #40C4FF; font-weight: bold">Logout</span>
       </ion-col>
     </ion-row>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label>Choose Crop</ion-label>
-      <ion-select [(ngModel)]="crop_id" interface="popover" placeholder="choose crop">
-        <ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>Age of crop</ion-label>
-      <ion-input [(ngModel)]="age_of_crop" placeholder='Age in days' type="number"></ion-input>
-    </ion-item>
-  </ion-list>
+  <ion-card style="padding: 5px; font-weight: bold; border-radius: 4px">
+    Please take closeup photos of the symptom and send it for expert advise.
+  </ion-card>
+
+  <ion-row>
+    <ion-col>
+      <ion-card class="custom-input">
+        <select>
+          <option>Choose Crop</option>
+          <option *ngFor="let crop of crops" [value]="crop.id">{{crop.name}}</option>
+        </select>
+        <!--<ion-select [(ngModel)]="crop_id" interface="popover" placeholder="Crop" style="padding: 0px">-->
+          <!--<ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>-->
+        <!--</ion-select>-->
+
+      </ion-card>
+              <ion-label text-center>Crop</ion-label>
+
+    </ion-col>
+    <ion-col>
+      <ion-card class="custom-input">
+        <input [(ngModel)]="age_of_crop" text-center placeholder='Age in days' type="number">
+      </ion-card>
+      <ion-label text-center>Age of the crop</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <!--<ion-row>-->
+    <!--<ion-col>-->
+      <!--<ion-list>-->
+        <!--<ion-item>-->
+          <!--<ion-label>Choose Crop</ion-label>-->
+          <!--<ion-select [(ngModel)]="crop_id" selectedText="Crop" interface="popover" placeholder="choose crop">-->
+            <!--<ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>-->
+          <!--</ion-select>-->
+        <!--</ion-item>-->
+      <!--</ion-list>-->
+    <!--</ion-col>-->
+    <!--<ion-col>-->
+      <!--<ion-list>-->
+        <!--<ion-item>-->
+          <!--<ion-label fixed>Age of crop</ion-label>-->
+          <!--<ion-input [(ngModel)]="age_of_crop" placeholder='Age in days' type="number"></ion-input>-->
+        <!--</ion-item>-->
+      <!--</ion-list>-->
+    <!--</ion-col>-->
+  <!--</ion-row>-->
+
+  <ion-card class="custom-input">
   <ion-item>
-    <ion-label floating>Notes</ion-label>
-    <ion-textarea elastic style="color:black; line-height:normal; height:100%" [(ngModel)]="notes"></ion-textarea>
+    <!--<ion-label floating>Notes</ion-label>-->
+    <textarea elastic style="color:black; line-height:normal; height:100%; width: 100%" [(ngModel)]="notes" placeholder="Notes"></textarea>
   </ion-item>
+  <!--<ion-item>-->
+    <!--<ion-label floating>Notes</ion-label>-->
+    <!--<ion-textarea elastic style="color:black; line-height:normal; height:100%" [(ngModel)]="notes"></ion-textarea>-->
+  <!--</ion-item>-->
+  </ion-card>
 
   <ion-icon name="camera" style="font-size: 100px; margin-left: 40%" (click)="choosePicture()"></ion-icon>
   <br>
@@ -42,10 +82,11 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button full color="secondary" (click)="uploadQuery(crop_id, age_of_crop, notes, picture_array)">Send</button>
-    </ion-col>
-  </ion-row>
+  <ion-card class="custom-button">
+    <ion-row (click)="uploadQuery(crop_id, age_of_crop, notes, picture_array)">
+      <ion-col>Send
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
 </ion-content>

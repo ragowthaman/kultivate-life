@@ -3,6 +3,18 @@ page-sign-up {
     border: 1px solid red;
   }
 
+  input[type="number"] {
+    width: 100%;
+    display: table;
+    border-style: none;
+  }
+  input[type="text"] {
+    width: 100%;
+    display: table;
+    border-style: none;
+    border: none;
+  }
+
   .custom-button {
     border-radius: 25px;
     padding: 10px 0px 10px 0px;

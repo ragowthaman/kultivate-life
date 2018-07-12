@@ -1,4 +1,10 @@
 page-login {
+  input[type="number"] {
+    width: 100%;
+    display: table;
+    border-style: none;
+  }
+
   .error {
     border: 1px solid red;
   }

@@ -12,92 +12,69 @@
     <form [formGroup]="signup_form">
 
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-row>
-            <ion-col col-2>
-              <ion-icon name="phone-portrait" style="color: #F4511E"></ion-icon>
-            </ion-col>
-            <!--<input type="number" formControlName="mobile" placeholder="Enter the 10 digit phone number">-->
+      <ion-card class="custom-input">
+        <ion-row>
+          <ion-col col-2>
+            <ion-icon name="phone-portrait" style="color: #F4511E"></ion-icon>
+          </ion-col>
+          <ion-col>
             <input type="number" placeholder="Enter the 10 digit phone number" formControlName="mobile">
-          </ion-row>
-        </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-card>
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-row>
-            <ion-col col-2>
-              <ion-icon name="person" style="color: #F4511E"></ion-icon>
-            </ion-col>
-            <input placeholder="First Name" text-capitalize formControlName="first_name">
-          </ion-row>
-        </ion-card>
+      <ion-card class="custom-input">
+        <ion-row>
+          <ion-col col-2>
+            <ion-icon name="person" style="color: #F4511E"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <input type="text" placeholder="First Name" text-capitalize formControlName="first_name">
+          </ion-col>
+        </ion-row>
+      </ion-card>
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-row>
-            <ion-col col-2>
-              <ion-icon name="person" style="color: #F4511E"></ion-icon>
-            </ion-col>
-            <input placeholder="Last Name" text-capitalize formControlName="last_name">
-          </ion-row>
-        </ion-card>
+      <ion-card class="custom-input">
+        <ion-row>
+          <ion-col col-2>
+            <ion-icon name="person" style="color: #F4511E"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <input type="text" placeholder="Last Name" text-capitalize formControlName="last_name">
+          </ion-col>
+        </ion-row>
+      </ion-card>
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-row>
-            <ion-col col-2>
-              <ion-icon name="home" style="color: #F4511E"></ion-icon>
-            </ion-col>
-            <input placeholder="Village" text-capitalize formControlName="village">
-          </ion-row>
-        </ion-card>
+      <ion-card class="custom-input">
+        <ion-row>
+          <ion-col col-2>
+            <ion-icon name="home" style="color: #F4511E"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <input type="text" placeholder="Village" text-capitalize formControlName="village">
+          </ion-col>
+        </ion-row>
+      </ion-card>
 
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-row>
-            <ion-col col-2>
-              <ion-icon name="analytics" style="color: #F4511E"></ion-icon>
-            </ion-col>
+      <ion-card class="custom-input">
+        <ion-row>
+          <ion-col col-2>
+            <ion-icon name="analytics" style="color: #F4511E"></ion-icon>
+          </ion-col>
+          <ion-col>
             <input type="number" placeholder="Pincode" formControlName="pincode">
-          </ion-row>
-        </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-card>
 
-       <ion-card [ngClass]="signup_form.valid? 'custom-button': 'custom-invalid-button'">
-      <!--<ion-card class="custom-button">-->
+      <ion-card [ngClass]="signup_form.valid? 'custom-button': 'custom-invalid-button'">
         <ion-row (click)="signUp()">
           <ion-col>
             Sign Up
           </ion-col>
         </ion-row>
       </ion-card>
-
-
-      <!--<ion-list>-->
-        <!--<ion-item>-->
-          <!--<ion-label color="primary" [ngClass]="">Mobile No</ion-label>-->
-          <!--<ion-input type="number" placeholder="9384674765" formControlName="mobile"></ion-input>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label color="primary">First Name</ion-label>-->
-          <!--<ion-input placeholder="Mahesh" text-capitalize formControlName="first_name"></ion-input>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label color="primary">Last Name</ion-label>-->
-          <!--<ion-input placeholder="Punniyamoorthi" text-capitalize formControlName="last_name"></ion-input>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label color="primary">Village</ion-label>-->
-          <!--<ion-input placeholder="Kannur" text-capitalize formControlName="village"></ion-input>-->
-        <!--</ion-item>-->
-        <!--<ion-item>-->
-          <!--<ion-label color="primary">Pincode</ion-label>-->
-          <!--<ion-input type="number" placeholder="642353" formControlName="pincode"></ion-input>-->
-        <!--</ion-item>-->
-
-
-        <!--<ion-row>-->
-          <!--<ion-col offset-4>-->
-            <!--<button ion-button [disabled]="!signup_form.valid">Sign Up</button>-->
-          <!--</ion-col>-->
-        <!--</ion-row>-->
-      <!--</ion-list>-->
     </form>
   </div>
 
@@ -118,13 +95,6 @@
     </ion-col>
   </ion-row>
 
-
-  <!--<ion-row>-->
-    <!--<ion-col>-->
-      <!--<button ion-button color="light" (click)="navigateLoginPage()">Login</button>-->
-    <!--</ion-col>-->
-  <!--</ion-row>-->
-
   <ion-card class="custom-button" style="margin-top: 30%;">
     <ion-row (click)="navigateLoginPage()">
       <ion-col>
@@ -134,6 +104,6 @@
   </ion-card>
 
   <p style="text-align: center">
-   Already have an account?
+    Already have an account?
   </p>
 </ion-content>

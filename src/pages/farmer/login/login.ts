@@ -24,12 +24,12 @@ export class LoginPage {
     });
 
     // check localstorage null or not null
-    storage.get('user_detail').then((data) => {
-      if (data != null) {
-        this.httpServiceProvider.appendTokenToHeader(data['token'])
-        this.navCtrl.setRoot(TabsPage)
-      }
-    });
+    // storage.get('user_detail').then((data) => {
+    //   if (data != null) {
+    //     this.httpServiceProvider.appendTokenToHeader(data['token'])
+    //     this.navCtrl.setRoot(TabsPage)
+    //   }
+    // });
   }
 
   logIn() {
@@ -89,12 +89,8 @@ export class LoginPage {
     this.navCtrl.push(SignUpPage);
   }
 
-  navigateToHome() {
+  routeTabPage() {
     this.navCtrl.push(TabsPage);
   }
-
-  // isMobileValid() {
-  //   return
-  // }
 
 }

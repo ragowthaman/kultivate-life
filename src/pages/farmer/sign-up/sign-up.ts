@@ -14,7 +14,7 @@ import {LoginPage} from "../login/login";
 })
 export class SignUpPage {
   public signup_form: FormGroup;
-  is_otp_created: boolean = true;
+  is_otp_created: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider,
               private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
@@ -59,7 +59,7 @@ export class SignUpPage {
     }
     let otp_data = {
       'otp': otp,
-      'mobile': '9003832999'
+      'mobile': '9585488448'
       // 'mobile': this.signup_form.value.mobile
     };
     this.httpServiceProvider.confirmSignupOtp(otp_data).subscribe((data) => {

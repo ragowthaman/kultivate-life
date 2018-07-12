@@ -18,14 +18,14 @@
       <form [formGroup]="login_form">
       <!--<form [formGroup]="login_form" (ngSubmit)="logIn()">-->
 
-        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
+        <ion-card class="custom-input">
           <ion-row>
             <ion-col col-2>
               <ion-icon name="phone-portrait" style="color: #F4511E"></ion-icon>
             </ion-col>
-            <!--<ion-col>-->
-            <input type="number" formControlName="mobile" placeholder="Enter the 10 digit phone number">
-            <!--</ion-col>-->
+            <ion-col>
+              <input type="number" formControlName="mobile" placeholder="Enter the 10 digit phone number">
+            </ion-col>
           </ion-row>
         </ion-card>
         <ion-card [ngClass]="login_form.valid? 'custom-button': 'custom-invalid-button'">
@@ -36,20 +36,6 @@
             </ion-col>
           </ion-row>
         </ion-card>
-
-
-        <!--<ion-list>-->
-        <!--<ion-item>-->
-        <!--<ion-label color="primary">Mobile</ion-label>-->
-        <!--<ion-input type="number" placeholder="642353" formControlName="mobile"></ion-input>-->
-
-        <!--</ion-item>-->
-        <!--<ion-row>-->
-        <!--<ion-col offset-4>-->
-        <!--<button ion-button [disabled]="!login_form.valid">LogIn</button>-->
-        <!--</ion-col>-->
-        <!--</ion-row>-->
-        <!--</ion-list>-->
       </form>
     </div>
   </div>
@@ -84,4 +70,5 @@
   <p style="text-align: center">
    Don't Have an Account?
   </p>
+  <button ion-button (click)="routeTabPage()"> Tab </button>
 </ion-content>

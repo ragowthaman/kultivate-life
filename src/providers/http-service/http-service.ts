@@ -12,13 +12,16 @@ export class HttpServiceProvider {
   constructor(public http: Http, private global: GlobalProvider, private storage: Storage) {
     console.log('Hello HttpServiceProvider Provider');
     this.headers = new Headers();
+    this.appendTokenToHeader();
   }
 
-  appendTokenToHeader(token = '') {
-    if (token == '') {
+  appendTokenToHeader(token:any=null) {
+    if (token == null) {
       this.storage.get('user_detail').then((data) => {
-        token = data['token']
-        this.headers.append('Authorization', 'Token ' + token);
+        if (data != null) {
+          token = data['token'];
+          this.headers.append('Authorization', 'Token ' + token);
+        }
       });
     } else {
       this.headers.append('Authorization', 'Token ' + token);
@@ -32,43 +35,46 @@ export class HttpServiceProvider {
   }
 
   signup(data) {
-    return this.http.post(this.global.base_url + 'main/signup/', data, {})
+    return this.http.post(this.global.base_url + 'main/signup/', data, {headers: this.headers})
   }
 
   login(data) {
-    return this.http.post(this.global.base_url + 'main/login/', data, {})
+    return this.http.post(this.global.base_url + 'main/login/', data, {headers: this.headers})
       .map((res) => res.json())
   }
 
   confirmSignupOtp(data) {
-    return this.http.post(this.global.base_url + 'main/confirm/signup/otp/', data, {})
+    return this.http.post(this.global.base_url + 'main/confirm/signup/otp/', data, {headers: this.headers})
       .map((res) => res.json());
   }
 
   confirmLoginOtp(data) {
-    return this.http.post(this.global.base_url + 'main/confirm/login/otp/', data, {})
+    return this.http.post(this.global.base_url + 'main/confirm/login/otp/', data, {headers: this.headers})
       .map((res) => res.json());
   }
 
   resendOtp(data) {
-    return this.http.post(this.global.base_url + 'main/resend/otp/', data, {});
+    return this.http.post(this.global.base_url + 'main/resend/otp/', data, {headers: this.headers});
   }
 
   resendLoginOtp(data) {
-    return this.http.post(this.global.base_url + 'main/resend/login/otp/', data, {});
+    return this.http.post(this.global.base_url + 'main/resend/login/otp/', data, {headers: this.headers});
   }
 
   uploadUserQuery(data) {
-    return this.http.post(this.global.base_url + 'main/upload/user/query/images/', data);
+    return this.http.post(this.global.base_url + 'main/upload/user/query/images/', data, {headers: this.headers});
   }
 
   getCrops() {
-    return this.http.get(this.global.base_url + 'main/serve/corp/')
+    console.log(this.global.base_url);
+    console.log(this.headers);
+    // alert(this.global.base_url);
+    return this.http.get(this.global.base_url + 'main/serve/corp/', {headers: this.headers})
       .map((res) => res.json());
   }
 
   getQueryHistoryByUser(data) {
-    return this.http.post(this.global.base_url + 'main/get/query/history/by/user/', data)
+    return this.http.post(this.global.base_url + 'main/get/query/history/by/user/', data, {headers: this.headers})
       .map((res) => res.json());
   }
 

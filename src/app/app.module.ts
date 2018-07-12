@@ -27,7 +27,7 @@ import { CameraServiceProvider } from '../providers/camera-service/camera-servic
     HomePage,
     TabsPage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +50,7 @@ import { CameraServiceProvider } from '../providers/camera-service/camera-servic
     HomePage,
     TabsPage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
   ],
   providers: [
     StatusBar,
