@@ -29,6 +29,9 @@ plugins/android.json
 plugins/ios.json
 www/build
 www/assets/fonts
+www/service-worker.js
+www/index.html
+www/manifest.json
 # www/
 $RECYCLE.BIN/
 
