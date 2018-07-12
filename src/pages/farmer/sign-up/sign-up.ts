@@ -14,22 +14,26 @@ import {LoginPage} from "../login/login";
 })
 export class SignUpPage {
   public signup_form: FormGroup;
-  is_otp_created: boolean = false;
+  is_otp_created: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider,
               private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
     this.signup_form = this.formBuilder.group({
-      first_name: ['first name', Validators.required],
-      last_name: ['last name', Validators.required],
-      village: ['village', Validators.required],
-      mobile: ['1234567890', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
-      pincode: ['534353', Validators.compose([Validators.maxLength(6), Validators.minLength(6)])],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      village: ['', Validators.required],
+      mobile: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{10}')])],
+      pincode: ['', Validators.compose([Validators.pattern('[0-9]{6}')])],
     });
     console.log('signup')
 
   }
 
    signUp() {
+    if (!this.signup_form.valid) {
+      alert('Form not valid');
+      return false;
+    }
     console.log(this.signup_form.value);
     this.signup_form.value.first_name = this.signup_form.value.first_name[0].toUpperCase() + this.signup_form.value.first_name.slice(1)
     this.signup_form.value.last_name = this.signup_form.value.last_name[0].toUpperCase() + this.signup_form.value.last_name.slice(1)
@@ -48,20 +52,22 @@ export class SignUpPage {
 
   confirmOtp(otp) {
     console.log(otp);
+    console.log(this.signup_form.value.mobile);
     if (otp === undefined || otp == '') {
       alert("Please enter OTP");
       return false;
     }
     let otp_data = {
       'otp': otp,
-      'mobile': this.signup_form.value.mobile
+      'mobile': '9003832999'
+      // 'mobile': this.signup_form.value.mobile
     };
     this.httpServiceProvider.confirmSignupOtp(otp_data).subscribe((data) => {
       console.log(data);
       let success_message = data['message'];
       this.displayToast(success_message, 'middle');
       this.storage.set('user_detail', data['user_detail']);
-      this.httpServiceProvider.appendTokenToHeader();
+      this.httpServiceProvider.appendTokenToHeader(data['user_detail']['token']);
       this.navCtrl.push(TabsPage)
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
@@ -90,7 +96,7 @@ export class SignUpPage {
   }
 
   navigateLoginPage() {
-    this.navCtrl.push(LoginPage)
+    this.navCtrl.pop();
   }
 
 }

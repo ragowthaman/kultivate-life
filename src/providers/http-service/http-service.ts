@@ -11,14 +11,16 @@ export class HttpServiceProvider {
 
   constructor(public http: Http, private global: GlobalProvider, private storage: Storage) {
     console.log('Hello HttpServiceProvider Provider');
+    this.headers = new Headers();
   }
 
-  appendTokenToHeader(token = null) {
-    if (token == null) {
-      let token = ''
+  appendTokenToHeader(token = '') {
+    if (token == '') {
       this.storage.get('user_detail').then((data) => {
         token = data['token']
-      })
+        this.headers.append('Authorization', 'Token ' + token);
+      });
+    } else {
       this.headers.append('Authorization', 'Token ' + token);
     }
   }

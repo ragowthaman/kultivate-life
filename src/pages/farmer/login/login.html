@@ -8,36 +8,47 @@
 
 
 <ion-content padding>
-  <div style="margin-top: 30%">
-    <div *ngIf="is_otp_created == false">
-      <form [formGroup]="login_form" (ngSubmit)="logIn()">
 
-        <ion-row style="border: 1px solid black; border-radius: 7px; padding: 10px 0px 10px 0px; text-align: center">
-          <ion-col col-2>
-            <ion-icon name="phone-portrait" style="color: #F4511E"></ion-icon>
-          </ion-col>
-          <!--<ion-col>-->
+  <div style="height: 75px; width: 50%;margin: 0% 0% 0% 23%;">
+    <img src="assets/icon/logo.png">
+  </div>
+
+  <div style="margin-top: 40%">
+    <div *ngIf="is_otp_created == false">
+      <form [formGroup]="login_form">
+      <!--<form [formGroup]="login_form" (ngSubmit)="logIn()">-->
+
+        <ion-card style="border-radius: 25px; padding: 10px 0px 10px 0px; text-align: center">
+          <ion-row>
+            <ion-col col-2>
+              <ion-icon name="phone-portrait" style="color: #F4511E"></ion-icon>
+            </ion-col>
+            <!--<ion-col>-->
             <input type="number" formControlName="mobile" placeholder="Enter the 10 digit phone number">
-          <!--</ion-col>-->
-        </ion-row>
-        <ion-row style="border: 1px solid black; border-radius: 7px; padding: 6px 0px 3px 0px; margin-top: 10px; color: white; background-color: #F4511E; text-align: center">
-          <ion-col>
-            Login
-          </ion-col>
-        </ion-row>
+            <!--</ion-col>-->
+          </ion-row>
+        </ion-card>
+        <ion-card [ngClass]="login_form.valid? 'custom-button': 'custom-invalid-button'">
+        <!--<ion-card class="custom-button">-->
+          <ion-row  (click)="logIn()">
+            <ion-col>
+              Login
+            </ion-col>
+          </ion-row>
+        </ion-card>
 
 
         <!--<ion-list>-->
-          <!--<ion-item>-->
-            <!--<ion-label color="primary">Mobile</ion-label>-->
-            <!--<ion-input type="number" placeholder="642353" formControlName="mobile"></ion-input>-->
+        <!--<ion-item>-->
+        <!--<ion-label color="primary">Mobile</ion-label>-->
+        <!--<ion-input type="number" placeholder="642353" formControlName="mobile"></ion-input>-->
 
-          <!--</ion-item>-->
-          <!--<ion-row>-->
-            <!--<ion-col offset-4>-->
-              <!--<button ion-button [disabled]="!login_form.valid">LogIn</button>-->
-            <!--</ion-col>-->
-          <!--</ion-row>-->
+        <!--</ion-item>-->
+        <!--<ion-row>-->
+        <!--<ion-col offset-4>-->
+        <!--<button ion-button [disabled]="!login_form.valid">LogIn</button>-->
+        <!--</ion-col>-->
+        <!--</ion-row>-->
         <!--</ion-list>-->
       </form>
     </div>
@@ -63,20 +74,14 @@
   </ion-row>
 
 
-
-
-  <ion-row style="border: 1px solid black; border-radius: 7px; padding: 6px 3px 3px 3px; margin-top: 70%; color: white; background-color: #F4511E; text-align: center" (click)="routeSignupPage()">
-    <ion-col>
-      Signup
-    </ion-col>
-  </ion-row>
-
-  <!--<ion-row>-->
-    <!--<ion-col>-->
-      <!--<button ion-button color="light" (click)="routeSignupPage()">SignUp</button>-->
-    <!--</ion-col>-->
-  <!--</ion-row>-->
-
-  <button ion-button (click)="navigateToHome()"> Home</button>
-  <!--</div>-->
+  <ion-card class="custom-button" style="margin-top: 35%;">
+    <ion-row (click)="routeSignupPage()">
+      <ion-col>
+        Create New Account
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <p style="text-align: center">
+   Don't Have an Account?
+  </p>
 </ion-content>

@@ -1,5 +1,29 @@
 page-login {
-.error {
+  .error {
     border: 1px solid red;
-}
+  }
+
+  .custom-button {
+    border-radius: 25px;
+    padding: 10px 0px 10px 0px;
+    color: white;
+    background-color: #F4511E;
+    text-align: center;
+    font-size: 20px
+  }
+
+  .custom-input {
+    border-radius: 25px;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+  }
+
+  .custom-invalid-button {
+    border-radius: 25px;
+    padding: 10px 0px 10px 0px;
+    color: white;
+    background-color: #EF9A9A;
+    text-align: center;
+    font-size: 20px
+  }
 }

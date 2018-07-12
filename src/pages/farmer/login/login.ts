@@ -20,7 +20,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private toastCtrl: ToastController,
               private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
-      mobile: ['', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
+      mobile: ['', Validators.compose( [Validators.required, Validators.pattern('[0-9]{10}')])],
     });
 
     // check localstorage null or not null
@@ -33,6 +33,10 @@ export class LoginPage {
   }
 
   logIn() {
+    if (!this.login_form.valid) {
+      alert('Form not valid');
+      return false;
+    }
     console.log(this.login_form.value);
     this.httpServiceProvider.login(this.login_form.value).subscribe((data) => {
       this.is_otp_created = true;
@@ -88,5 +92,9 @@ export class LoginPage {
   navigateToHome() {
     this.navCtrl.push(TabsPage);
   }
+
+  // isMobileValid() {
+  //   return
+  // }
 
 }
