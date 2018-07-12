@@ -14,7 +14,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from "@ionic-native/camera";
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { GlobalProvider } from '../providers/global/global';
-import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
+// import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
+import { CameraServiceProvider } from '../providers/camera-service/camera-service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
     ContactPage,
     HomePage,
     TabsPage,
-    SignUpPage
+    // SignUpPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
     ContactPage,
     HomePage,
     TabsPage,
-    SignUpPage
+    // SignUpPage
 ],
   providers: [
     StatusBar,
@@ -45,7 +46,8 @@ import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
     HttpServiceProvider,
-    GlobalProvider
+    GlobalProvider,
+    CameraServiceProvider,
   ]
 })
 export class AppModule {}

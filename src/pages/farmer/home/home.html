@@ -20,6 +20,21 @@
     </ion-item>
   </ion-list>
 
-  <ion-icon name="camera" style="font-size: 100px; margin-left: 40%" (click)="takePicture()"></ion-icon>
+  <ion-icon name="camera" style="font-size: 100px; margin-left: 40%" (click)="choosePicture()"></ion-icon>
+  <br>
+  <ion-row>
+    <ion-col col-4 *ngFor="let picture of picture_array; let index=index">
+      <ion-thumbnail>
+        <ion-icon name="close-circle" (click)="removeSelectedPic(index)" class="icon-cross"></ion-icon>
+        <img [src]="picture" alt="image">
+      </ion-thumbnail>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button full color="secondary">Send</button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>
