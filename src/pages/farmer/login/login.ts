@@ -39,10 +39,12 @@ export class LoginPage {
     }
     console.log(this.login_form.value);
     this.httpServiceProvider.login(this.login_form.value).subscribe((data) => {
+      alert('success');
       this.is_otp_created = true;
       console.log(data)
       this.displayToast(data['message'], 'top');
     }, (error) => {
+      alert('error');
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message);
       console.log(error);

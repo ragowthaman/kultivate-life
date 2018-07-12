@@ -122,7 +122,7 @@ export class HomePage {
 
   uploadQuery(crop_id, age_of_crop, notes, picture_array) {
     let query_dict = {};
-    query_dict['user_id'] = 3;
+    // query_dict['user_id'] = 3;
     query_dict['crop_id'] = crop_id;
     query_dict['age_of_crop'] = age_of_crop;
     query_dict['notes'] = notes;

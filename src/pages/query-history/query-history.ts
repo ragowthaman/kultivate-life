@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -12,7 +13,21 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service';
 export class QueryHistoryPage {
   query_history: any = [];
   query_keys: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpServiceProvider: HttpServiceProvider) {
+  mobile: string = '';
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private httpServiceProvider: HttpServiceProvider,
+    private storage: Storage
+  ) {
+    this.storage.get('user_detail').then((data) => {
+      if (data != null) {
+        // alert('storage not null')
+        // alert(JSON.parse(data));
+        this.mobile = data['mobile']
+        // alert(this.mobile);
+      } else {
+        // alert('storage null')
+      }
+    })
   }
 
   ionViewDidLoad() {

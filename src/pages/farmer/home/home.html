@@ -19,8 +19,7 @@
   <ion-row>
     <ion-col>
       <ion-card class="custom-input">
-        <select>
-          <option>Choose Crop</option>
+        <select [(ngModel)]="crop_id">
           <option *ngFor="let crop of crops" [value]="crop.id">{{crop.name}}</option>
         </select>
         <!--<ion-select [(ngModel)]="crop_id" interface="popover" placeholder="Crop" style="padding: 0px">-->

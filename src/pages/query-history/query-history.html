@@ -26,16 +26,18 @@
 
 
 
-
+<div *ngIf="mobile=='9003832999'">
   <accordion-list title="12-07-2018" textColor="#FFF" hasMargin="false" headerColor="#F4511E">
     <ion-list>
       <ion-item>
         <ion-avatar item-start>
           <img alt='image' src="assets/icon/crop1.jpeg">
         </ion-avatar>
-        <h3>Paddy</h3>
-        <h3 style="margin-top: 10px">Reco 1: </h3>
-        <h3 style="margin-top: 10px">Reco 2: </h3>
+        <div style="padding: 2px">
+          <h3>Paddy</h3>
+          <h3 style="margin-top: 10px">Reco 1: First recommendation</h3>
+          <h3 style="margin-top: 10px">Reco 2: Second recommendation</h3>
+        </div>
       </ion-item>
     </ion-list>
   </accordion-list>
@@ -46,12 +48,14 @@
         <ion-avatar item-start>
           <img alt='image' src="assets/icon/tomato.jpg">
         </ion-avatar>
-        <h3>Tomato</h3>
-        <h3 style="margin-top: 10px">Reco 1: </h3>
-        <h3 style="margin-top: 10px">Reco 2: </h3>
-        <h3 style="margin-top: 10px">Reco 3: </h3>
+        <div style="padding: 2px">
+          <h3>Tomato</h3>
+          <h3 style="margin-top: 10px">Reco 1: First recommendation</h3>
+          <h3 style="margin-top: 10px">Reco 2: Second recommendation</h3>
+          <h3 style="margin-top: 10px">Reco 3: Third recommendation</h3>
+        </div>
       </ion-item>
     </ion-list>
   </accordion-list>
-
+</div>
 </ion-content>

@@ -59,8 +59,8 @@ export class SignUpPage {
     }
     let otp_data = {
       'otp': otp,
-      'mobile': '9585488448'
-      // 'mobile': this.signup_form.value.mobile
+      // 'mobile': '9585488448'
+      'mobile': this.signup_form.value.mobile
     };
     this.httpServiceProvider.confirmSignupOtp(otp_data).subscribe((data) => {
       console.log(data);
