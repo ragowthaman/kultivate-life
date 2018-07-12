@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, App} from 'ionic-angular';
-import {Camera, CameraOptions} from "@ionic-native/camera";
 import { Storage } from '@ionic/storage';
 import {HttpServiceProvider} from "../../../providers/http-service/http-service";
 import {LoginPage} from "../login/login";
+import {NavController, App, ActionSheetController, Platform, ToastController, LoadingController} from 'ionic-angular';
+import { CameraServiceProvider } from '../../../providers/camera-service/camera-service';
+
 
 @Component({
   selector: 'page-home',
@@ -15,25 +16,61 @@ export class HomePage {
     {'id': 2, 'name': 'Tomato'},
     {'id': 3, 'name': 'Chilly'},
   ];
+  picture_array: any[] = [];
+  dummy = 'assets/imgs/logo.png';
 
-  constructor(public navCtrl: NavController, private camera: Camera, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
+  constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
+    private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
+  }
 
+  choosePicture() {
+    console.log(this.picture_array);
+    // this.picture_array.push(null);
+    // let pic_index = (this.picture_array.length);
+    let actionsheet = this.actionsheetCtrl.create({
+      title: 'upload picture',
+      buttons: [
+        {
+          text: 'camera',
+          icon: !this.platform.is('ios') ? 'camera' : null,
+          handler: () => {
+            this.takePicture();
+          }
+        },
+        {
+          text: !this.platform.is('ios') ? 'gallery' : 'camera roll',
+          icon: !this.platform.is('ios') ? 'image' : null,
+          handler: () => {
+            this.getPicture();
+          }
+        },
+        {
+          text: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          role: 'destructive',
+          handler: () => {
+            console.log('the user has cancelled the interaction.');
+          }
+        }
+      ]
+    });
+    return actionsheet.present();
   }
 
   takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
+    let loading = this.loadingCtrl.create();
 
-    this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
+    loading.present();
+
+    return this.cameraProvider.getPictureFromCamera().then(picture => {
+      if (picture) {
+        this.picture_array.push(picture);
+        this.displatToast('Image Taken!');
+      }
+      loading.dismiss();
+    }, error => {
+      loading.dismiss();
+      alert(error);
     });
   }
 
@@ -41,6 +78,37 @@ export class HomePage {
     this.storage.clear();
     this.httpServiceProvider.eraseTokenFromHeader();
     this.app.getRootNav().setRoot(LoginPage)
+  }
+
+
+  getPicture() {
+    let loading = this.loadingCtrl.create();
+
+    loading.present();
+
+    return this.cameraProvider.getPictureFromPhotoLibrary().then(picture => {
+      if (picture) {
+        this.picture_array.push(picture);
+        this.displatToast('Image Taken!');
+      }
+      loading.dismiss();
+    }, error => {
+      alert(error);
+      loading.dismiss();
+    });
+  }
+
+  displatToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  removeSelectedPic(index) {
+    this.picture_array.splice(index, 1);
   }
 
 }

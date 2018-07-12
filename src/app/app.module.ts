@@ -17,6 +17,7 @@ import {GlobalProvider} from '../providers/global/global';
 import {IonicStorageModule} from '@ionic/storage';
 import {LoginPage} from "../pages/farmer/login/login";
 import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
+import { CameraServiceProvider } from '../providers/camera-service/camera-service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
     HttpServiceProvider,
-    GlobalProvider
+    GlobalProvider,
+    CameraServiceProvider,
   ]
 })
 export class AppModule {

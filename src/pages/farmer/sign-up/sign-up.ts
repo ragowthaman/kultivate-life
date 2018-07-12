@@ -19,9 +19,9 @@ export class SignUpPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider,
               private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
     this.signup_form = this.formBuilder.group({
-      first_name: ['fa', Validators.required],
-      last_name: ['fsaf', Validators.required],
-      village: ['fa', Validators.required],
+      first_name: ['first name', Validators.required],
+      last_name: ['last name', Validators.required],
+      village: ['village', Validators.required],
       mobile: ['1234567890', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
       pincode: ['534353', Validators.compose([Validators.maxLength(6), Validators.minLength(6)])],
     });

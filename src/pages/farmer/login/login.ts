@@ -20,7 +20,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private toastCtrl: ToastController,
               private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
-      mobile: ['1234567890', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
+      mobile: ['', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
     });
 
     // check localstorage null or not null

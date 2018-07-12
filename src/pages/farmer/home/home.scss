@@ -1,3 +1,26 @@
 page-home {
+//     ion-avatar img,
+//     ion-thumbnail img {
+//     display: block;
+//     margin: 0 auto;
+//     width: 25vh;
+//     height: auto;
+//   }
+
+    img {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        background: #eee;
+        contain: strict;
+    }
+
+    .icon-cross {
+        color: red;
+        position: absolute;
+        margin-left: 80px;
+        z-index: 1;
+        font-size: 20px;
+    }
 
 }
