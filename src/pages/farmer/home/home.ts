@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, App} from 'ionic-angular';
 import {Camera, CameraOptions} from "@ionic-native/camera";
+import { Storage } from '@ionic/storage';
+import {HttpServiceProvider} from "../../../providers/http-service/http-service";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-home',
@@ -13,7 +16,7 @@ export class HomePage {
     {'id': 3, 'name': 'Chilly'},
   ];
 
-  constructor(public navCtrl: NavController, private camera: Camera) {
+  constructor(public navCtrl: NavController, private camera: Camera, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
 
   }
 
@@ -32,6 +35,12 @@ export class HomePage {
     }, (err) => {
       // Handle error
     });
+  }
+
+  logout() {
+    this.storage.clear();
+    this.httpServiceProvider.eraseTokenFromHeader();
+    this.app.getRootNav().setRoot(LoginPage)
   }
 
 }

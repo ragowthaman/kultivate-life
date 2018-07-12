@@ -3,6 +3,9 @@ import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angula
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import { HttpServiceProvider } from './../../../providers/http-service/http-service';
 import { GlobalProvider } from './../../../providers/global/global';
+import { Storage } from '@ionic/storage'
+import { TabsPage } from "../tabs/tabs";
+import {LoginPage} from "../login/login";
 
 @IonicPage()
 @Component({
@@ -13,7 +16,8 @@ export class SignUpPage {
   public signup_form: FormGroup;
   is_otp_created: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider,
+              private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
     this.signup_form = this.formBuilder.group({
       first_name: ['fa', Validators.required],
       last_name: ['fsaf', Validators.required],
@@ -21,6 +25,8 @@ export class SignUpPage {
       mobile: ['1234567890', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
       pincode: ['534353', Validators.compose([Validators.maxLength(6), Validators.minLength(6)])],
     });
+    console.log('signup')
+
   }
 
    signUp() {
@@ -29,7 +35,7 @@ export class SignUpPage {
     this.signup_form.value.last_name = this.signup_form.value.last_name[0].toUpperCase() + this.signup_form.value.last_name.slice(1)
     this.signup_form.value.village = this.signup_form.value.village[0].toUpperCase() + this.signup_form.value.village.slice(1)
     console.log(this.signup_form.value.first_name)
-    this.httpServiceProvider.test(this.signup_form.value).subscribe((data) => {
+    this.httpServiceProvider.signup(this.signup_form.value).subscribe((data) => {
       this.is_otp_created = true;
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
@@ -50,10 +56,13 @@ export class SignUpPage {
       'otp': otp,
       'mobile': this.signup_form.value.mobile
     };
-    this.httpServiceProvider.confirmOtp(otp_data).subscribe((data) => {
+    this.httpServiceProvider.confirmSignupOtp(otp_data).subscribe((data) => {
       console.log(data);
-      let success_message = JSON.parse(data._body)['message'];
-      this.displayToast(success_message, 'middle')
+      let success_message = data['message'];
+      this.displayToast(success_message, 'middle');
+      this.storage.set('user_detail', data['user_detail']);
+      this.httpServiceProvider.appendTokenToHeader();
+      this.navCtrl.push(TabsPage)
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message)
@@ -81,7 +90,7 @@ export class SignUpPage {
   }
 
   navigateLoginPage() {
-    this.navCtrl.push('LoginPage')
+    this.navCtrl.push(LoginPage)
   }
 
 }

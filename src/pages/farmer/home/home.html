@@ -1,13 +1,20 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-row>
+      <ion-col col-5>
+        <ion-title>Home</ion-title>
+      </ion-col>
+      <ion-col offset-3 col-3>
+        <span (click)="logout()" style="color: #FF7043; font-weight: bold">Logout</span>
+      </ion-col>
+    </ion-row>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Choose Crop </ion-label>
+      <ion-label>Choose Crop</ion-label>
       <ion-select [(ngModel)]="crop_name" interface="popover" placeholder="choose crop">
         <ion-option *ngFor="let crop of crops" [value]="crop.id">{{ crop.name }}</ion-option>
       </ion-select>
@@ -15,7 +22,7 @@
   </ion-list>
   <ion-list>
     <ion-item>
-    <ion-label floating>Age of crop</ion-label>
+      <ion-label floating>Age of crop</ion-label>
       <ion-input type="number"></ion-input>
     </ion-item>
   </ion-list>

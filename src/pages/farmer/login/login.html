@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>login</ion-title>
+    <ion-title text-center>LogIn</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -38,4 +38,12 @@
       <button ion-button (click)="resendLoginOtp(otp)">Resend Otp</button>
     </ion-col>
   </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button color="light" (click)="routeSignupPage()">SignUp</button>
+    </ion-col>
+  </ion-row>
+
+  <button ion-button (click)="navigateToHome()"> Home </button>
 </ion-content>

@@ -1,8 +1,11 @@
-import { GlobalProvider } from './../../../providers/global/global';
-import { Component } from '@angular/core';
+import {GlobalProvider} from './../../../providers/global/global';
+import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { HttpServiceProvider } from './../../../providers/http-service/http-service';
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {HttpServiceProvider} from './../../../providers/http-service/http-service';
+import {SignUpPage} from "../sign-up/sign-up";
+import {TabsPage} from "../tabs/tabs";
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage()
@@ -13,16 +16,28 @@ import { HttpServiceProvider } from './../../../providers/http-service/http-serv
 export class LoginPage {
   public login_form: FormGroup;
   is_otp_created: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private toastCtrl: ToastController, private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private toastCtrl: ToastController,
+              private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
       mobile: ['1234567890', Validators.compose([Validators.maxLength(10), Validators.minLength(10), Validators.required])],
+    });
+
+    // check localstorage null or not null
+    storage.get('user_detail').then((data) => {
+      if (data != null) {
+        this.httpServiceProvider.appendTokenToHeader(data['token'])
+        this.navCtrl.setRoot(TabsPage)
+      }
     });
   }
 
   logIn() {
     console.log(this.login_form.value);
-    this.httpServiceProvider.test(this.login_form.value).subscribe((data) => {
+    this.httpServiceProvider.login(this.login_form.value).subscribe((data) => {
       this.is_otp_created = true;
+      console.log(data)
+      this.displayToast(data['message'], 'top');
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message);
@@ -40,6 +55,9 @@ export class LoginPage {
 
     this.httpServiceProvider.confirmLoginOtp(otp_data).subscribe((data) => {
       console.log(data);
+      this.httpServiceProvider.appendTokenToHeader(data['user_detail']['token']);
+      this.navCtrl.push(TabsPage);
+      this.storage.set('user_detail', data['user_detail']);
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message)
@@ -52,6 +70,23 @@ export class LoginPage {
     this.httpServiceProvider.resendLoginOtp(data).subscribe((data) => {
       console.log('resend otp success');
     }, (error) => console.log('resend otp error'))
+  }
+
+  displayToast(message: string, position: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: position,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  routeSignupPage() {
+    this.navCtrl.push(SignUpPage);
+  }
+
+  navigateToHome() {
+    this.navCtrl.push(TabsPage);
   }
 
 }
