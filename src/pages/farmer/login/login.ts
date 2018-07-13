@@ -1,6 +1,6 @@
-import {GlobalProvider} from './../../../providers/global/global';
+// import {GlobalProvider} from './../../../providers/global/global';
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {HttpServiceProvider} from './../../../providers/http-service/http-service';
 import {SignUpPage} from "../sign-up/sign-up";
@@ -17,8 +17,7 @@ export class LoginPage {
   public login_form: FormGroup;
   is_otp_created: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private toastCtrl: ToastController,
-              private global: GlobalProvider, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
       mobile: ['', Validators.compose( [Validators.required, Validators.pattern('[0-9]{10}')])],
     });
@@ -39,12 +38,12 @@ export class LoginPage {
     }
     console.log(this.login_form.value);
     this.httpServiceProvider.login(this.login_form.value).subscribe((data) => {
-      alert('success');
+      alert(data['message']);
       this.is_otp_created = true;
       console.log(data)
-      this.displayToast(data['message'], 'top');
+      // this.displayToast(data['message'], 'top');
     }, (error) => {
-      alert('error');
+      // alert('error');
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message);
       console.log(error);
@@ -78,14 +77,14 @@ export class LoginPage {
     }, (error) => console.log('resend otp error'))
   }
 
-  displayToast(message: string, position: string) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      position: position,
-      duration: 3000
-    });
-    toast.present();
-  }
+  // displayToast(message: string, position: string) {
+  //   let toast = this.toastCtrl.create({
+  //     message: message,
+  //     position: position,
+  //     duration: 3000
+  //   });
+  //   toast.present();
+  // }
 
   routeSignupPage() {
     this.navCtrl.push(SignUpPage);

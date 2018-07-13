@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import { HttpServiceProvider } from './../../../providers/http-service/http-service';
-import { GlobalProvider } from './../../../providers/global/global';
+// import { GlobalProvider } from './../../../providers/global/global';
 import { Storage } from '@ionic/storage'
 import { TabsPage } from "../tabs/tabs";
-import {LoginPage} from "../login/login";
+// import {LoginPage} from "../login/login";
 
 @IonicPage()
 @Component({
@@ -16,8 +16,8 @@ export class SignUpPage {
   public signup_form: FormGroup;
   is_otp_created: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private global: GlobalProvider,
-              private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
+    private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
     this.signup_form = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
