@@ -68,7 +68,7 @@ export class SignUpPage {
       this.displayToast(success_message, 'middle');
       this.storage.set('user_detail', data['user_detail']);
       this.httpServiceProvider.appendTokenToHeader(data['user_detail']['token']);
-      this.navCtrl.push(TabsPage)
+      this.navCtrl.setRoot(TabsPage)
     }, (error) => {
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message)

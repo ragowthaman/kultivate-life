@@ -24,6 +24,9 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
     private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
+  }
+
+  ionViewDidEnter() {
     this.httpServiceProvider.getCrops().subscribe((data) => {
       console.log(data);
       this.crops = data;
