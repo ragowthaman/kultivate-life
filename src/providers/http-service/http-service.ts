@@ -63,10 +63,7 @@ export class HttpServiceProvider {
   }
 
   getCrops() {
-    console.log(this.global.base_url);
-    console.log(this.headers);
-    // alert(this.global.base_url);
-    return this.http.get(this.global.base_url + 'main/serve/corp/', {headers: this.headers})
+    return this.http.get(this.global.base_url + 'main/serve/corp/')
       .map((res) => res.json());
   }
 

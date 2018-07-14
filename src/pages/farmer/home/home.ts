@@ -4,26 +4,33 @@ import { HttpServiceProvider } from "../../../providers/http-service/http-servic
 import { LoginPage } from "../login/login";
 import { NavController, App, ActionSheetController, Platform, ToastController, LoadingController } from 'ionic-angular';
 import { CameraServiceProvider } from '../../../providers/camera-service/camera-service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  // crops = [
-  //   { 'id': 1, 'name': 'Paddy' },
-  //   { 'id': 2, 'name': 'Tomato' },
-  //   { 'id': 3, 'name': 'Chilly' },
-  // ];
-  crop_id: any;
-  age_of_crop: any;
-  notes: any;
+  crop_id: number = null;
+  age_of_crop: number = null;
+  notes: any = '';
   crops: any[] = [];
   picture_array: any[] = [];
+  default_lang: any = 'தமிழ்';
 
   constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
-    private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App) {
+    private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App, public translate: TranslateService) {
+
+    this.storage.get('language').then((lang) => {
+      console.log(lang);
+      if (lang != null) {
+        this.default_lang = lang;
+      }
+      this.translate.addLangs(['english', 'தமிழ்']);
+      this.translate.setDefaultLang('english');
+      const browserLang = this.translate.getBrowserLang();
+      this.translate.use(browserLang.match(/english|தமிழ்/) ? browserLang : this.default_lang);
+    });
   }
 
   ionViewDidEnter() {
@@ -36,9 +43,6 @@ export class HomePage {
   }
 
   choosePicture() {
-    console.log(this.picture_array);
-    // this.picture_array.push(null);
-    // let pic_index = (this.picture_array.length);
     let actionsheet = this.actionsheetCtrl.create({
       title: 'upload picture',
       buttons: [
@@ -125,14 +129,38 @@ export class HomePage {
 
   uploadQuery(crop_id, age_of_crop, notes, picture_array) {
     let query_dict = {};
-    // query_dict['user_id'] = 3;
     query_dict['crop_id'] = crop_id;
     query_dict['age_of_crop'] = age_of_crop;
     query_dict['notes'] = notes;
-    if (picture_array.length != 0) {
-      query_dict['query_picture'] = picture_array;
-    }
+
     console.log(query_dict);
+    if (picture_array.length < 1) {
+      if (this.default_lang == 'தமிழ்') {
+        alert('குறைந்தது ஒரு புகைப்படத்தைத் தேர்ந்தெடுக்கவும்');
+      } else {
+        alert('Please select at lease one Image!');
+      }
+      return false
+    }
+
+    if (crop_id == undefined || crop_id == null) {
+      if (this.default_lang == 'தமிழ்') {
+        alert('பயிர் ஒன்றைத் தேர்ந்தெடுக்கவும்');
+      } else {
+        alert('Please Select A Crop!');
+      }
+      return false
+    }
+
+    if (age_of_crop == undefined || age_of_crop == null) {
+      if (this.default_lang == 'தமிழ்') {
+        alert('பயிர் வயதை உள்ளிடுக (நாட்களில்)');
+      } else {
+        alert('Please Enter the Age of the Crop in Days!')
+      }
+      return false
+    }
+    
     this.httpServiceProvider.uploadUserQuery(query_dict).subscribe((data) => {
       console.log(data);
       this.crop_id = null;
@@ -143,6 +171,11 @@ export class HomePage {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  setDefaultLanguage(language) {
+    console.log(language);
+    this.storage.set('language', language);
   }
 
 }

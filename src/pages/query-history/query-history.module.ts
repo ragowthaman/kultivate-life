@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { QueryHistoryPage } from './query-history';
 import { AccordionListComponent } from '../../components/accordion-list/accordion-list';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { AccordionListComponent } from '../../components/accordion-list/accordio
   ],
   imports: [
     IonicPageModule.forChild(QueryHistoryPage),
+    TranslateModule.forChild()
   ],
   providers: [
     AccordionListComponent

@@ -19,6 +19,16 @@ import {LoginPage} from "../pages/farmer/login/login";
 import {SignUpPage} from "../pages/farmer/sign-up/sign-up";
 import { CameraServiceProvider } from '../providers/camera-service/camera-service';
 
+// for Translate
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +50,15 @@ import { CameraServiceProvider } from '../providers/camera-service/camera-servic
       }
     }),
     HttpModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
