@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>farmer-query-list</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngFor="let crop_name of available_crop_names">
+    <ion-card *ngFor="let query of farmer_query_list[crop_name]" (click)="routeQuery(query['query_id'])">
+      <ion-row>
+        Crop: {{ crop_name }}
+        </ion-row>
+      <ion-row>
+        Name: {{ query['user']['first_name'] }} {{ query['user']['last_name'] }}
+      </ion-row>
+      <ion-row>
+        Notes: {{ query['notes'] }}
+      </ion-row>
+      <ion-row>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>

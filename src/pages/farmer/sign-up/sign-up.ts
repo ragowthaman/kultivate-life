@@ -99,4 +99,7 @@ export class SignUpPage {
     this.navCtrl.pop();
   }
 
+  routeToHistoryPage() {
+    this.navCtrl.push('FarmerQueryListPage');
+  }
 }

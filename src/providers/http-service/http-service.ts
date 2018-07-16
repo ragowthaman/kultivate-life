@@ -72,4 +72,19 @@ export class HttpServiceProvider {
       .map((res) => res.json());
   }
 
+  getQueryDetail(data) {
+    return this.http.post(this.global.base_url + 'main/get/query/detail/', data, {headers: this.headers})
+      .map((res) => res.json());
+  }
+
+  getFarmerQueries() {
+    return this.http.get(this.global.base_url + 'main/serve/farmer/queries/', {headers: this.headers})
+      .map((res) => res.json());
+  }
+
+  getQueryDetails(data) {
+    return this.http.post(this.global.base_url + 'main/serve/query/information/', data, {headers: this.headers})
+      .map((res) => res.json());
+  }
+
 }

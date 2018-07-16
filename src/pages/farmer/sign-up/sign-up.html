@@ -82,7 +82,7 @@
     <ion-col>
       <ion-item>
         <ion-label color="primary">OTP</ion-label>
-        <ion-input type="number" [(ngModel)]="otp" placeholder="642353"></ion-input>
+        <ion-input type="number" [(ngModel)]="otp"></ion-input>
       </ion-item>
     </ion-col>
     <ion-col>
@@ -102,6 +102,8 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <button ion-button (click)="routeToHistoryPage()"> history </button>
 
   <p style="text-align: center">
     Already have an account?
