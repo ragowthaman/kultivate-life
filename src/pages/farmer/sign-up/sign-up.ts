@@ -100,6 +100,7 @@ export class SignUpPage {
   }
 
   routeToHistoryPage() {
-    this.navCtrl.push('FarmerQueryListPage');
+    // this.navCtrl.push('FarmerQueryListPage');
+    this.navCtrl.push(TabsPage);
   }
 }

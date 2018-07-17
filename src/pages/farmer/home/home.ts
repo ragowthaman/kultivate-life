@@ -5,6 +5,7 @@ import { LoginPage } from "../login/login";
 import { NavController, App, ActionSheetController, Platform, ToastController, LoadingController } from 'ionic-angular';
 import { CameraServiceProvider } from '../../../providers/camera-service/camera-service';
 import { TranslateService } from '@ngx-translate/core';
+import {GlobalProvider} from "../../../providers/global/global";
 
 @Component({
   selector: 'page-home',
@@ -19,7 +20,8 @@ export class HomePage {
   default_lang: any = 'தமிழ்';
 
   constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
-    private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider, private app: App, public translate: TranslateService) {
+    private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider,
+              private app: App, public translate: TranslateService, private global: GlobalProvider) {
 
     this.storage.get('language').then((lang) => {
       console.log(lang);
@@ -31,6 +33,17 @@ export class HomePage {
       const browserLang = this.translate.getBrowserLang();
       this.translate.use(browserLang.match(/english|தமிழ்/) ? browserLang : this.default_lang);
     });
+
+    this.httpServiceProvider.getAppVersion().subscribe((data) => {
+      console.log(data);
+      if (this.global.version != data['version']) {
+        alert('Please update the app from playstore');
+          window.open("https://play.google.com/store/apps/details?id=com.kultivate.kultivate_life", "_system");
+      } else {
+        console.log('App is up to date');
+      }
+    });
+
   }
 
   ionViewDidEnter() {
@@ -96,7 +109,6 @@ export class HomePage {
     this.app.getRootNav().setRoot(LoginPage)
   }
 
-
   getPicture() {
     let loading = this.loadingCtrl.create();
 
@@ -141,6 +153,8 @@ export class HomePage {
         alert('Please select at lease one Image!');
       }
       return false
+    } else {
+      query_dict['query_picture'] = picture_array;
     }
 
     if (crop_id == undefined || crop_id == null) {
@@ -160,7 +174,7 @@ export class HomePage {
       }
       return false
     }
-    
+
     this.httpServiceProvider.uploadUserQuery(query_dict).subscribe((data) => {
       console.log(data);
       this.crop_id = null;

@@ -87,4 +87,9 @@ export class HttpServiceProvider {
       .map((res) => res.json());
   }
 
+  getAppVersion() {
+    return this.http.get(this.global.base_url + 'main/serve/kultivate/life/app/version/', {headers: this.headers})
+      .map((res) => res.json());
+  }
+
 }
