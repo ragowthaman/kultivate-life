@@ -15,7 +15,8 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage {
   public login_form: FormGroup;
-  is_otp_created: boolean = false;
+  is_otp_created: boolean = true;
+  // is_otp_created: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
@@ -55,7 +56,8 @@ export class LoginPage {
   confirmLoginOtp(otp: number) {
     let otp_data = {
       'otp': otp,
-      'mobile': this.login_form.value.mobile
+      'mobile': 9585488448
+      // 'mobile': this.login_form.value.mobile
     };
 
     this.httpServiceProvider.confirmLoginOtp(otp_data).subscribe((data) => {

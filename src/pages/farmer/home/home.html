@@ -13,25 +13,28 @@
 
 <ion-content>
   <ion-row>
-    <ion-col>
+    <ion-col style="margin-top: 10px">
       <ion-label text-center>{{'Select Language' | translate}}</ion-label>
     </ion-col>
-    <ion-col style="margin-top: 10px;">
+    <ion-col>
+    <!--<ion-col style="margin-top: 10px;">-->
       <span (change)="setDefaultLanguage(langSelect.value)">
-        <select #langSelect (change)="translate.use(langSelect.value)">
-          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-        </select>
+        <ion-card text-center class="custom-input">
+          <select #langSelect (change)="translate.use(langSelect.value)" style="margin-left: 35%" text-capitalize>
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>
+        </ion-card>
       </span>
     </ion-col>
   </ion-row>
-  <ion-card style="padding: 5px; font-weight: bold; border-radius: 4px">
+  <ion-card style="padding: 5px; font-weight: bold; border-radius: 4px;">
     {{'Please take closeup photos of the symptom and send it for expert advise.' | translate}}
   </ion-card>
 
   <ion-row>
     <ion-col>
       <ion-card class="custom-input">
-        <select [(ngModel)]="crop_id">
+        <select [(ngModel)]="crop_id" style="margin-left: 20%">
           <option *ngFor="let crop of crops" [value]="crop.id">{{crop.name | translate}}</option>
         </select>
         <!--<ion-select [(ngModel)]="crop_id" interface="popover" placeholder="Crop" style="padding: 0px">-->

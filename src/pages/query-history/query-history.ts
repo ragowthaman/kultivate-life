@@ -45,5 +45,10 @@ export class QueryHistoryPage {
     }, (error) => {
       console.log(error);
     });
+
+
+    this.httpServiceProvider.getFarmerQueries().subscribe((data) => {
+      console.log(data);
+    });
   }
 }

@@ -179,7 +179,7 @@ export class HomePage {
       console.log(data);
       this.crop_id = null;
       this.age_of_crop = null;
-      this.notes = null;
+      this.notes = '';
       this.picture_array = []
       alert('Your Request is uploaded!');
     }, (error) => {
