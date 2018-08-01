@@ -32,9 +32,9 @@
   </ion-card>
 
   <ion-row>
-    <ion-col>
+    <ion-col col-5>
       <ion-card class="custom-input">
-        <select [(ngModel)]="crop_id" style="margin-left: 20%">
+        <select [(ngModel)]="crop_id">
           <option *ngFor="let crop of crops" [value]="crop.id">{{crop.name | translate}}</option>
         </select>
         <!--<ion-select [(ngModel)]="crop_id" interface="popover" placeholder="Crop" style="padding: 0px">-->
@@ -42,14 +42,30 @@
         <!--</ion-select>-->
 
       </ion-card>
-      <ion-label text-center>{{'Crop' | translate}}</ion-label>
+      <!-- <ion-label text-center>{{'Crop' | translate}}</ion-label> -->
     </ion-col>
-    <ion-col>
+    
+    <ion-col col-3>
       <ion-card class="custom-input">
-        <input [(ngModel)]="age_of_crop" text-center placeholder="{{'Age in days' | translate}}" type="number">
+        <input [(ngModel)]="age_of_crop" text-center type="number">
       </ion-card>
-      <ion-label text-center>{{'Age of the crop' | translate}}</ion-label>
+      <!-- <ion-label text-center>{{'Age of the crop' | translate}}</ion-label> -->
     </ion-col>
+
+    <ion-col col-4>
+        <ion-card class="custom-input">
+          <select [(ngModel)]="crop_unit_id">
+          <option *ngFor="let crop_unit of crop_units" [value]="crop_unit.id">{{crop_unit.name | translate}}</option>
+        </select>
+        </ion-card>
+      </ion-col>
+  </ion-row>
+  <ion-row style="padding-top: 0px; margin-top: 0%">
+    <ion-col col-3 offset-2>{{'Crop' | translate}}</ion-col>
+    <ion-col offset-1>{{'Age of the crop' | translate}}</ion-col>
+  </ion-row>
+
+  <ion-row>
   </ion-row>
 
   <!--<ion-row>-->
@@ -96,7 +112,7 @@
   </ion-row>
 
   <ion-card class="custom-button">
-    <ion-row (click)="uploadQuery(crop_id, age_of_crop, notes, picture_array)">
+    <ion-row (click)="uploadQuery(crop_id, age_of_crop, notes, picture_array, crop_unit_id)">
       <ion-col>{{'Send' | translate}}
       </ion-col>
     </ion-row>

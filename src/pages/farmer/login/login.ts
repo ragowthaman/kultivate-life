@@ -15,21 +15,13 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage {
   public login_form: FormGroup;
-  is_otp_created: boolean = true;
-  // is_otp_created: boolean = false;
+  // is_otp_created: boolean = true;
+  is_otp_created: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private httpServiceProvider: HttpServiceProvider, private storage: Storage) {
     this.login_form = this.formBuilder.group({
       mobile: ['', Validators.compose( [Validators.required, Validators.pattern('[0-9]{10}')])],
     });
-
-    // check localstorage null or not null
-    // storage.get('user_detail').then((data) => {
-    //   if (data != null) {
-    //     this.httpServiceProvider.appendTokenToHeader(data['token'])
-    //     this.navCtrl.setRoot(TabsPage)
-    //   }
-    // });
   }
 
   logIn() {
@@ -56,8 +48,8 @@ export class LoginPage {
   confirmLoginOtp(otp: number) {
     let otp_data = {
       'otp': otp,
-      'mobile': 9585488448
-      // 'mobile': this.login_form.value.mobile
+      // 'mobile': 9585488448
+      'mobile': this.login_form.value.mobile
     };
 
     this.httpServiceProvider.confirmLoginOtp(otp_data).subscribe((data) => {
@@ -66,6 +58,7 @@ export class LoginPage {
       this.navCtrl.push(TabsPage);
       this.storage.set('user_detail', data['user_detail']);
     }, (error) => {
+      this.storage.clear();
       let error_message = JSON.parse(error._body)['error'];
       alert(error_message)
       console.log(JSON.parse(error._body));

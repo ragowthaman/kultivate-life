@@ -40,7 +40,7 @@ export class QueryHistoryPage {
     this.httpServiceProvider.getQueryHistoryByUser(user_dict).subscribe((data) => {
       console.log(data);
       this.query_history = data;
-      this.query_keys = Object.keys(data);
+      // this.query_keys = Object.keys(data);
       console.log(this.query_keys);
     }, (error) => {
       console.log(error);
@@ -50,5 +50,15 @@ export class QueryHistoryPage {
     this.httpServiceProvider.getFarmerQueries().subscribe((data) => {
       console.log(data);
     });
+  }
+
+  queryHasRecommendation(obj) {
+    console.log(obj)
+    if (obj.hasOwnProperty('recommendations')) {
+      '#F53D3D';
+    } else {
+      '#FFCDD2';
+    }
+
   }
 }

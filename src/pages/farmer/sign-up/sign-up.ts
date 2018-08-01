@@ -20,7 +20,7 @@ export class SignUpPage {
     private httpServiceProvider: HttpServiceProvider,  private toastCtrl: ToastController, private storage: Storage) {
     this.signup_form = this.formBuilder.group({
       first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      last_name: [''],
       village: ['', Validators.required],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{10}')])],
       pincode: ['', Validators.compose([Validators.pattern('[0-9]{6}')])],

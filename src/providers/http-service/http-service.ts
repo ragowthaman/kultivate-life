@@ -16,13 +16,18 @@ export class HttpServiceProvider {
     this.storage.get('user_detail').then((data) => {
       if (data != null) {
         let token = data['token'];
+        console.log(token)
         this.headers.append('Authorization', 'Token ' + token);
+        // this.headers.append('Authorization', 'Token ' + '77060ecdd51fea5748e9059dde434f2083ef0a6c');
+        console.log(this.headers);
       }
     });
   }
 
   appendTokenToHeader(token) {
+    // this.headers.append('Authorization', 'Token ' + '77060ecdd51fea5748e9059dde434f2083ef0a6c');
     this.headers.append('Authorization', 'Token ' + token);
+    console.log(this.headers);
   }
 
   eraseTokenFromHeader() {
@@ -46,6 +51,7 @@ export class HttpServiceProvider {
   }
 
   confirmLoginOtp(data) {
+    console.log(this.headers)
     return this.http.post(this.global.base_url + 'main/confirm/login/otp/', data, {headers: this.headers})
       .map((res) => res.json());
   }
@@ -59,11 +65,12 @@ export class HttpServiceProvider {
   }
 
   uploadUserQuery(data) {
+    // alert(JSON.stringify(this.headers));
     return this.http.post(this.global.base_url + 'main/upload/user/query/images/', data, {headers: this.headers});
   }
 
   getCrops() {
-    return this.http.get(this.global.base_url + 'main/serve/corp/')
+    return this.http.get(this.global.base_url + 'main/serve/corp/', {headers: this.headers})
       .map((res) => res.json());
   }
 
@@ -89,6 +96,11 @@ export class HttpServiceProvider {
 
   getAppVersion() {
     return this.http.get(this.global.base_url + 'main/serve/kultivate/life/app/version/', {headers: this.headers})
+      .map((res) => res.json());
+  }
+
+  getCropAgeUnits() {
+    return this.http.get(this.global.base_url + 'main/serve/crop/age/units/', {headers: this.headers})
       .map((res) => res.json());
   }
 

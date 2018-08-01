@@ -12,12 +12,14 @@ import {GlobalProvider} from "../../../providers/global/global";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  crop_id: number = null;
+  crop_id: number = 1;
   age_of_crop: number = null;
   notes: any = '';
   crops: any[] = [];
   picture_array: any[] = [];
   default_lang: any = 'தமிழ்';
+  crop_units: any = [];
+  crop_unit_id: number = 1;
 
   constructor(public navCtrl: NavController, private cameraProvider: CameraServiceProvider, private actionsheetCtrl: ActionSheetController, private platform: Platform,
     private toastCtrl: ToastController, private loadingCtrl: LoadingController, private storage: Storage, private httpServiceProvider: HttpServiceProvider,
@@ -38,7 +40,7 @@ export class HomePage {
       console.log(data);
       if (this.global.version != data['version']) {
         alert('Please update the app from playstore');
-          window.open("https://play.google.com/store/apps/details?id=com.kultivate.kultivate_life", "_system");
+          // window.open("https://play.google.com/store/apps/details?id=com.kultivate.kultivate_life", "_system");
       } else {
         console.log('App is up to date');
       }
@@ -50,6 +52,13 @@ export class HomePage {
     this.httpServiceProvider.getCrops().subscribe((data) => {
       console.log(data);
       this.crops = data;
+    }, (error) => {
+      console.log(error);
+    });
+
+    this.httpServiceProvider.getCropAgeUnits().subscribe((data) => {
+      console.log(data);
+      this.crop_units = data;
     }, (error) => {
       console.log(error);
     });
@@ -139,40 +148,42 @@ export class HomePage {
     this.picture_array.splice(index, 1);
   }
 
-  uploadQuery(crop_id, age_of_crop, notes, picture_array) {
+  uploadQuery(crop_id, age_of_crop, notes, picture_array, crop_unit_id) {
+    console.log(crop_unit_id);
+    if (crop_unit_id == undefined || crop_unit_id == '' || crop_unit_id == null) {
+      alert('Please selet crop age unit');
+      return false;
+    }
     let query_dict = {};
     query_dict['crop_id'] = crop_id;
     query_dict['age_of_crop'] = age_of_crop;
     query_dict['notes'] = notes;
+    query_dict['crop_unit_id'] = crop_unit_id;
 
     console.log(query_dict);
+
     if (picture_array.length < 1) {
-      if (this.default_lang == 'தமிழ்') {
-        alert('குறைந்தது ஒரு புகைப்படத்தைத் தேர்ந்தெடுக்கவும்');
-      } else {
-        alert('Please select at lease one Image!');
-      }
-      return false
+
+      this.translate.get('Please select at lease one Image!').subscribe((value) => {
+        alert(value);
+      });
+      return false;
     } else {
       query_dict['query_picture'] = picture_array;
     }
 
     if (crop_id == undefined || crop_id == null) {
-      if (this.default_lang == 'தமிழ்') {
-        alert('பயிர் ஒன்றைத் தேர்ந்தெடுக்கவும்');
-      } else {
-        alert('Please Select A Crop!');
-      }
-      return false
+      this.translate.get('Please Select A Crop!').subscribe((value) => {
+        alert(value);
+      });
+      return false;
     }
 
     if (age_of_crop == undefined || age_of_crop == null) {
-      if (this.default_lang == 'தமிழ்') {
-        alert('பயிர் வயதை உள்ளிடுக (நாட்களில்)');
-      } else {
-        alert('Please Enter the Age of the Crop in Days!')
-      }
-      return false
+      this.translate.get('Please Enter the Age of the Crop!').subscribe((value) => {
+        alert(value);
+      });
+      return false;
     }
 
     this.httpServiceProvider.uploadUserQuery(query_dict).subscribe((data) => {
@@ -180,8 +191,11 @@ export class HomePage {
       this.crop_id = null;
       this.age_of_crop = null;
       this.notes = '';
-      this.picture_array = []
-      alert('Your Request is uploaded!');
+      this.picture_array = [];
+      this.translate.get('Your Request is uploaded!').subscribe((value) => {
+        alert(value);
+      });
+      // alert('Your Request is uploaded!');
     }, (error) => {
       console.log(error);
     });

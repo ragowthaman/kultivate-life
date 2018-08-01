@@ -8,56 +8,21 @@
 
 
 <ion-content padding>
-  <accordion-list *ngFor="let date of query_keys; let index = index" [title]="date | date: 'dd-MM-yyyy'" textColor="#FFF" hasMargin="false"
-    headerColor="#F53D3D" [expanded]="index === 0">
+  <accordion-list class="test" *ngFor="let query of query_history; let index = index" title="{{query['requested_date'] | date: 'dd-MM-yyyy'}} : {{query['crop_name'] | translate}}" hasMargin="false" [expanded]="index === 0" name="checkmark">
     <ion-list>
-      <ion-item *ngFor="let query of query_history[date]">
+      <ion-item>
         <ion-avatar item-start>
-          <img alt='image' [src]="'data:image/jpeg;base64,' + query['crop']['crop_image']">
+          <img alt='image' [src]="'data:image/jpeg;base64,' + query['crop_image']">
           <!--<img alt='image' src="assets/icon/crop1.jpeg">-->
         </ion-avatar>
-        <h2 style="font-weight: bold; margin-top: 25px">{{query['crop']['name']}}</h2>
-        <h3 style="margin-top: 5px">Reco 1: </h3>
-        <h3 style="margin-top: 5px">Reco 2: </h3>
-        <h3>Reco 3: </h3>
-        <h3>Reco 4: </h3>
+        <h3 style="margin-top: 5px;"><span style="font-weight: bold">{{'Age of the crop'| translate}}:</span> {{query['age_of_crop']}} </h3>
+        <h3 style="margin-top: 5px; white-space: normal; text-align: justify;"><span style="font-weight: bold;">{{'Notes' | translate}}: </span>{{query['notes']}}</h3>
+        <h3 style="margin-top: 5px;font-weight: bold">{{'Recommendations' | translate}}:</h3>
+        <span *ngFor="let recommendation of query['recommendations']; let row = index">
+          <h3 style=" white-space: normal; text-align: justify  ; margin-top: 15px;">{{row +1}}: {{recommendation['recommendation']}}</h3>
+        </span>
       </ion-item>
       <hr>
     </ion-list>
   </accordion-list>
-
-
-
-<!--<div *ngIf="mobile=='9003832999'">-->
-  <!--<accordion-list title="12-07-2018" textColor="#FFF" hasMargin="false" headerColor="#F4511E">-->
-    <!--<ion-list>-->
-      <!--<ion-item>-->
-        <!--<ion-avatar item-start>-->
-          <!--<img alt='image' src="assets/icon/crop1.jpeg">-->
-        <!--</ion-avatar>-->
-        <!--<div style="padding: 2px">-->
-          <!--<h3>Paddy</h3>-->
-          <!--<h3 style="margin-top: 10px">Reco 1: First recommendation</h3>-->
-          <!--<h3 style="margin-top: 10px">Reco 2: Second recommendation</h3>-->
-        <!--</div>-->
-      <!--</ion-item>-->
-    <!--</ion-list>-->
-  <!--</accordion-list>-->
-
-  <!--<accordion-list title="11-07-2018" textColor="#FFF" hasMargin="false" headerColor="#F4511E">-->
-    <!--<ion-list>-->
-      <!--<ion-item>-->
-        <!--<ion-avatar item-start>-->
-          <!--<img alt='image' src="assets/icon/tomato.jpg">-->
-        <!--</ion-avatar>-->
-        <!--<div style="padding: 2px">-->
-          <!--<h3>Tomato</h3>-->
-          <!--<h3 style="margin-top: 10px">Reco 1: First recommendation</h3>-->
-          <!--<h3 style="margin-top: 10px">Reco 2: Second recommendation</h3>-->
-          <!--<h3 style="margin-top: 10px">Reco 3: Third recommendation</h3>-->
-        <!--</div>-->
-      <!--</ion-item>-->
-    <!--</ion-list>-->
-  <!--</accordion-list>-->
-<!--</div>-->
 </ion-content>
